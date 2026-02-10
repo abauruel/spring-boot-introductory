@@ -1,0 +1,43 @@
+@username = johndoe
+@password = password123
+
+POST http://localhost:8080/users/
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "username": "{{username}}",
+    "password": "{{password}}"
+}
+
+# echo -n "johndoe:password123" | base64
+
+###
+POST http://localhost:8080/tasks/
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+
+{
+    "title": "Complete Assignment",
+    "description": "Finish the math assignment by tomorrow",
+    "priority": "HIGH",
+    "startAt": "2026-02-11T10:00:00",
+    "endAt": "2026-02-11T12:00:00"
+}
+
+###
+GET http://localhost:8080/tasks/
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+###
+@taskId=b554a894-0892-4701-9b28-9047e720bae1
+PUT  http://localhost:8080/tasks/{{taskId}}
+Content-Type: application/json
+Authorization: Basic {{username}}:{{password}}
+
+{
+  
+    "endAt": "2026-02-13T13:00:00"
+}
